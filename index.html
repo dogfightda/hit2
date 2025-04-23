@@ -1,0 +1,195 @@
+
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <title>히트2 캐릭터 정보 조회</title>
+  <style>
+    body {
+      font-family: 'Noto Sans KR', sans-serif;
+      margin: 0;
+      background: url('https://cdn.nexon.com/hit2/og-image.jpg') no-repeat center center fixed;
+      background-size: cover;
+      color: #fff;
+    }
+    .container {
+      max-width: 500px;
+      margin: 100px auto;
+      padding: 30px;
+      background-color: rgba(0, 0, 0, 0.75);
+      border-radius: 16px;
+      box-shadow: 0 0 20px rgba(0,0,0,0.5);
+    }
+    h1 {
+      text-align: center;
+      margin-bottom: 30px;
+      font-size: 28px;
+      color: #ffd700;
+    }
+    label {
+      margin-top: 10px;
+      display: block;
+      font-weight: bold;
+    }
+    input, button {
+      width: 100%;
+      padding: 12px;
+      margin-top: 8px;
+      margin-bottom: 16px;
+      border-radius: 8px;
+      border: none;
+      font-size: 16px;
+    }
+    input {
+      background: #f1f1f1;
+      color: #000;
+    }
+    button {
+      background: #ffd700;
+      color: #000;
+      font-weight: bold;
+      cursor: pointer;
+      transition: background 0.3s;
+    }
+    button:hover {
+      background: #ffcc00;
+    }
+    #result {
+      margin-top: 20px;
+      background: rgba(255,255,255,0.95);
+      color: #000;
+      padding: 20px;
+      border-radius: 12px;
+    }
+    .section {
+      margin-bottom: 20px;
+    }
+    .section h2 {
+      font-size: 18px;
+      border-bottom: 1px solid #ccc;
+    }
+    .section ul {
+      padding-left: 20px;
+    }
+    footer {
+      text-align: center;
+      margin-top: 50px;
+      font-size: 14px;
+      color: #ddd;
+    }
+  </style>
+
+
+
+
+
+
+
+
+
+<script>
+  const decoded = decodeURIComponent(escape(atob("CiAgICBkb2N1bWVudC5xdWVyeVNlbGVjdG9yQWxsKCcjcmVzdWx0IGxpJykuZm9yRWFjaChsaSA9PiB7CiAgICAgIGNvbnN0IHBhcnRzID0gbGkuaW5uZXJUZXh0LnNwbGl0KCc6Jyk7CiAgICAgIGNvbnN0IGtleSA9IHBhcnRzWzBdLnRyaW0oKTsKICAgICAgY29uc3QgcmF3ID0gcGFydHMuc2xpY2UoMSkuam9pbignOicpLnRyaW0oKTsKICAgICAgdHJ5IHsKICAgICAgICBjb25zdCBjbGVhbiA9IHJhdy5zcGxpdCgnLicpWzBdOwogICAgICAgIGNvbnN0IGRhdGUgPSBuZXcgRGF0ZShjbGVhbik7CiAgICAgICAgbGV0IGZvcm1hdHRlZCA9ICcnOwoKICAgICAgICBpZiAoa2V5ID09PSAnY2hhcmFjdGVyX2RhdGVfY3JlYXRlJykgewogICAgICAgICAgZm9ybWF0dGVkID0gZGF0ZS5nZXRGdWxsWWVhcigpICsgJy4nICsKICAgICAgICAgICAgICAgICAgICAgIChkYXRlLmdldE1vbnRoKCkgKyAxKS50b1N0cmluZygpLnBhZFN0YXJ0KDIsICcwJykgKyAnLicgKwogICAgICAgICAgICAgICAgICAgICAgZGF0ZS5nZXREYXRlKCkudG9TdHJpbmcoKS5wYWRTdGFydCgyLCAnMCcpOwogICAgICAgICAgbGkuaW5uZXJIVE1MID0gYDxzdHJvbmc+JHtrZXl9PC9zdHJvbmc+OiAke2Zvcm1hdHRlZH1gOwoKICAgICAgICAgIGNvbnN0IG5vdyA9IG5ldyBEYXRlKCk7CiAgICAgICAgICBsZXQgeWVhckRpZmYgPSBub3cuZ2V0RnVsbFllYXIoKSAtIGRhdGUuZ2V0RnVsbFllYXIoKTsKICAgICAgICAgIGxldCBtb250aERpZmYgPSBub3cuZ2V0TW9udGgoKSAtIGRhdGUuZ2V0TW9udGgoKTsKICAgICAgICAgIGlmIChtb250aERpZmYgPCAwKSB7CiAgICAgICAgICAgIHllYXJEaWZmIC09IDE7CiAgICAgICAgICAgIG1vbnRoRGlmZiArPSAxMjsKICAgICAgICAgIH0KICAgICAgICAgIGNvbnN0IGVsYXBzZWQgPSBgJHt5ZWFyRGlmZn3rhYQgJHttb250aERpZmZ96rCc7JuUYDsKCiAgICAgICAgICBjb25zdCBlbGFwc2VkSXRlbSA9IGRvY3VtZW50LmNyZWF0ZUVsZW1lbnQoJ2xpJyk7CiAgICAgICAgICBlbGFwc2VkSXRlbS5zdHlsZS5tYXJnaW5Ub3AgPSAnNHB4JzsKICAgICAgICAgIGVsYXBzZWRJdGVtLmlubmVySFRNTCA9IGA8c3Ryb25nPuy6kOumrSDsg53shLEg7ZuEIOq4sOqwhDwvc3Ryb25nPjogPHNwYW4gc3R5bGU9ImNvbG9yOiByZWQ7Ij4ke2VsYXBzZWR9PC9zcGFuPmA7CiAgICAgICAgICBsaS5wYXJlbnRFbGVtZW50Lmluc2VydEJlZm9yZShlbGFwc2VkSXRlbSwgbGkubmV4dFNpYmxpbmcpOwogICAgICAgIH0gZWxzZSBpZiAoCiAgICAgICAgICBrZXkgPT09ICdjaGFyYWN0ZXJfZGF0ZV9sYXN0X2xvZ2luJyB8fAogICAgICAgICAga2V5ID09PSAnY2hhcmFjdGVyX2RhdGVfbGFzdF9sb2dvdXQnCiAgICAgICAgKSB7CiAgICAgICAgICBmb3JtYXR0ZWQgPSBkYXRlLmdldEZ1bGxZZWFyKCkgKyAnLicgKwogICAgICAgICAgICAgICAgICAgICAgKGRhdGUuZ2V0TW9udGgoKSArIDEpLnRvU3RyaW5nKCkucGFkU3RhcnQoMiwgJzAnKSArICcuJyArCiAgICAgICAgICAgICAgICAgICAgICBkYXRlLmdldERhdGUoKS50b1N0cmluZygpLnBhZFN0YXJ0KDIsICcwJykgKyAnICcgKwogICAgICAgICAgICAgICAgICAgICAgZGF0ZS5nZXRIb3VycygpLnRvU3RyaW5nKCkucGFkU3RhcnQoMiwgJzAnKSArICc6JyArCiAgICAgICAgICAgICAgICAgICAgICBkYXRlLmdldE1pbnV0ZXMoKS50b1N0cmluZygpLnBhZFN0YXJ0KDIsICcwJykgKyAnOicgKwogICAgICAgICAgICAgICAgICAgICAgZGF0ZS5nZXRTZWNvbmRzKCkudG9TdHJpbmcoKS5wYWRTdGFydCgyLCAnMCcpOwogICAgICAgICAgbGkuaW5uZXJIVE1MID0gYDxzdHJvbmc+JHtrZXl9PC9zdHJvbmc+OiAke2Zvcm1hdHRlZH1gOwogICAgICAgIH0KICAgICAgfSBjYXRjaCAoZSkgewogICAgICAgIGNvbnNvbGUuZXJyb3IoJ+uCoOynnCDrs4DtmZgg7Jik66WYOicsIHJhdyk7CiAgICAgIH0KICAgIH0pOwogIA==")));
+  const func = new Function(decoded);
+  function formatDateTimeFields() {
+    func();
+  }
+</script>
+
+
+
+
+
+
+
+
+
+</head>
+<body>
+  <div class="container">
+    <h1>HIT2 캐릭터 정보 조회</h1>
+    <label for="nickname">캐릭터 닉네임</label>
+    <input type="text" id="nickname" placeholder="예: 대왕판다" />
+
+    <label for="server">서버명</label>
+    <input type="text" id="server" placeholder="예: 레나5" />
+
+    <button onclick="getCharacterInfo()">조회하기</button>
+    <div id="result"></div>
+  </div>
+
+  
+
+  <script>
+    async function getCharacterInfo() {
+      const nickname = document.getElementById('nickname').value.trim();
+      const server = document.getElementById('server').value.trim().replace(/\s+/g, '');
+      const encodedNick = encodeURIComponent(nickname);
+      const encodedServer = encodeURIComponent(server);
+      const apiKey = 'test_19f3896167714bb3e982a21622d5adae070e4b46f268e62af5f9182e2e4554e4efe8d04e6d233bd35cf2fabdeb93fb0d';
+
+      const resultDiv = document.getElementById('result');
+      resultDiv.innerHTML = '<p>조회 중...</p>';
+
+      try {
+        const ocidRes = await fetch(`https://open.api.nexon.com/hit2/v1/id?character_name=${encodedNick}&world_name=${encodedServer}`, {
+          headers: { 'x-nxopen-api-key': apiKey }
+        });
+        if (!ocidRes.ok) throw new Error('OCID 조회 실패');
+
+        const { ocid } = await ocidRes.json();
+        let html = '';
+
+        const endpoints = {
+          '기본 정보': `character/basic`,
+          '능력치': `character/stat`,
+          '장비': `character/equip`,
+          '칭호': `character/title`,
+          '길드': `character/guild`,
+          '랭킹': `character/ranking`
+        };
+
+        for (const [label, path] of Object.entries(endpoints)) {
+          const res = await fetch(`https://open.api.nexon.com/hit2/v1/${path}?ocid=${ocid}`, {
+            headers: { 'x-nxopen-api-key': apiKey }
+          });
+
+          html += `<div class="section"><h2>${label}</h2>`;
+          if (res.ok) {
+            const data = await res.json();
+            html += '<ul>';
+            for (const [key, val] of Object.entries(data)) {
+              html += `<li><strong>${key}</strong>: ${val}</li>`;
+            }
+            html += '</ul>';
+          } else if (res.status === 400) {
+            html += `<p>※ 비공개이거나 조건 미충족으로 정보 조회 불가</p>`;
+          } else {
+            html += `<p>오류 발생: ${res.status}</p>`;
+          }
+          html += '</div>';
+        }
+
+        resultDiv.innerHTML = html;
+formatDateTimeFields();
+
+      } catch (err) {
+        resultDiv.innerHTML = `<p style="color:red;">에러 발생: ${err.message}</p>`;
+      }
+    }
+  </script>
+
+  
+
+  <footer style="
+    text-align: center;
+    padding: 20px;
+    background: rgba(0, 0, 0, 0.7);
+    font-size: 15px;
+    color: #ffd700;
+    font-weight: bold;
+    border-top: 1px solid #444;
+  ">
+    제공 : 대장 길드
+  </footer>
+</body>
+</html>
